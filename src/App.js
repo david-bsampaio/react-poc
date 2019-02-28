@@ -5,23 +5,30 @@ import Person from './Person/Person';
 class App extends Component {
   state = {
     people: [
-      {name:"David", age: 34},
-      {name:"Simone", age: 32},
-      {name:"Letícia", age: 0},
+      {id:'1', name:"David", age: 34},
+      {id:'2', name:"Simone", age: 32},
+      {id:'3', name:"Letícia", age: 0},
     ],
     showPersons: false
   }
 
-switchNameHandler = (newName) => {
+/* switchNameHandler = (newName) => {
   console.log('Foi clicado.');
   this.setState({
       people: [
         {name: newName, age: 34},
-        {name:"Simone Kasi Sampaio", age: 32},
+        {name:"Simone", age: 32},
         {name:"Letícia", age: 0},
       ]
     }
   )
+} */
+
+deletePersonHandler = (personIndex) => {
+  const people = [...this.state.people];
+  //Remove um item da lista pelo index
+  people.splice(personIndex,1);
+  this.setState({people: people})
 }
 
 togglePersonsHandler = () => {
@@ -35,11 +42,13 @@ togglePersonsDisplay = () => {
   if( this.state.showPersons ){
     result = (
       <div>
-        <Person name={this.state.people[0].name} 
-                age={this.state.people[0].age}
-                click={this.switchNameHandler.bind(this, 'valor bindado')}/>
-        <Person name={this.state.people[1].name} age={this.state.people[1].age}/>
-        <Person name={this.state.people[2].name} age={this.state.people[2].age}>Recém nascida.</Person>
+        {this.state.people.map((person,index) => {
+          return <Person 
+            name={person.name} 
+            age={person.age}
+            click={() => this.deletePersonHandler(index)}
+            key={person.id}/>
+        })}
       </div>
     );
   }
