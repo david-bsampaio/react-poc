@@ -11,9 +11,7 @@ class App extends Component {
     ],
     showPersons: false
   }
-style = {
-  "backgroundColor": "blue"
-}
+
 switchNameHandler = (newName) => {
   console.log('Foi clicado.');
   this.setState({
@@ -31,23 +29,39 @@ togglePersonsHandler = () => {
   this.setState({showPersons: !doesShow});
 }
 
+togglePersonsDisplay = () => {
+  let result = null;
+
+  if( this.state.showPersons ){
+    result = (
+      <div>
+        <Person name={this.state.people[0].name} 
+                age={this.state.people[0].age}
+                click={this.switchNameHandler.bind(this, 'valor bindado')}/>
+        <Person name={this.state.people[1].name} age={this.state.people[1].age}/>
+        <Person name={this.state.people[2].name} age={this.state.people[2].age}>Recém nascida.</Person>
+      </div>
+    );
+  }
+  return result;
+}
+
   render() {
+    const style = {
+      "backgroundColor": "lightblue",
+      "width": "100px",
+      "height": "50px",
+      "border": "2px solid black",
+      "cursor": "pointer"
+    };
+    let persons = this.togglePersonsDisplay();
+
     return (
       <div className="App">
-        <h1>REACT - Aplicação</h1>
+        <h1>POC - Curso React</h1>
         <p>Entendendo JSX</p>
-        <button styleClass={this.style} onClick={this.togglePersonsHandler}>Exibe Nome</button>
-        {
-          this.state.showPersons ?
-            <div>
-              <Person name={this.state.people[0].name} 
-                      age={this.state.people[0].age}
-                      click={this.switchNameHandler.bind(this, 'valor bindado')}/>
-              <Person name={this.state.people[1].name} age={this.state.people[1].age}/>
-              <Person name={this.state.people[2].name} age={this.state.people[2].age}>Recém nascida.</Person>
-            </div>
-        : null
-        }
+        <button style={style} onClick={this.togglePersonsHandler}>Exibe Nome</button>
+        {persons}
       </div>
     );
   }
