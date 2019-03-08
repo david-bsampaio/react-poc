@@ -12,17 +12,23 @@ class App extends Component {
     showPersons: false
   }
 
-/* switchNameHandler = (newName) => {
-  console.log('Foi clicado.');
+ switchNameHandler = (event, id) => {
+  const personIndex = this.state.people.findIndex( p => {
+    return p.id === id;
+  });
+
+  const person = {
+    ...this.state.people[personIndex]
+  };
+  
+  person.name = event.target.value;
+  const people = [...this.state.people];
+  people[personIndex] = person;
+
   this.setState({
-      people: [
-        {name: newName, age: 34},
-        {name:"Simone", age: 32},
-        {name:"Letícia", age: 0},
-      ]
-    }
-  )
-} */
+    people: people
+  });
+}
 
 deletePersonHandler = (personIndex) => {
   const people = [...this.state.people];
@@ -47,7 +53,8 @@ togglePersonsDisplay = () => {
             name={person.name} 
             age={person.age}
             click={() => this.deletePersonHandler(index)}
-            key={person.id}/>
+            key={person.id}
+            changed={(event) => this.switchNameHandler(event, person.id)}/>
         })}
       </div>
     );
