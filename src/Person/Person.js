@@ -1,11 +1,16 @@
-import React from 'react'
+import React from 'react';
+import Radium from 'radium';
+
 const style = {
     "width": "40%",
     "margin": "16px auto",
     "border": "1px solid #eee",
     "boxShadow": "0 2px 3px #ccc",
     "padding": "16px",
-    "textAlign":"center"
+    "textAlign":"center",
+    '@media (min-width: 700px)':{
+        width:'400px'
+    }
   };
 
 const person = (props) => {
@@ -19,4 +24,4 @@ const person = (props) => {
     )
 }
 
-export default person;
+export default Radium(person);
