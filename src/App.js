@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import './App.css';
+import classes from './App.css';
 import Person from './Person/Person';
-import Radium, {StyleRoot} from 'radium';
 
 class App extends Component {
   state = {
@@ -79,27 +78,25 @@ togglePersonsDisplay = () => {
     };
     let persons = this.togglePersonsDisplay();
 
-    const classes = [];
+    const assignedClasses = [];
 
     if (this.state.people.length <= 2){
-      classes.push('red');
+      assignedClasses.push(classes.red);
     }
 
     if (this.state.people.length <= 1){
-      classes.push('bold');
+      assignedClasses.push(classes.bold);
     }
 
     return (
-      <StyleRoot>
-      <div className="App">
+      <div className={classes.App}>
         <h1>POC - Curso React</h1>
-        <p className={classes.join(' ')}>Entendendo JSX</p>
+        <p className={assignedClasses.join(' ')}>Entendendo JSX</p>
         <button style={style} onClick={this.togglePersonsHandler}>Exibe Nome</button>
         {persons}
       </div>
-      </StyleRoot>
     );
   }
 }
 
-export default Radium(App);
+export default App;
