@@ -44,39 +44,35 @@ togglePersonsHandler = () => {
 
 togglePersonsDisplay = () => {
   let result = null;
+  let button = <button className={this.state.showPersons ? classes.Red : ''} onClick={this.togglePersonsHandler}>Exibe Nome</button>;
 
   if( this.state.showPersons ){
     result = (
       <div>
+        {button}
         {this.state.people.map((person,index) => {
           return <Person 
-            name={person.name} 
-            age={person.age}
-            click={() => this.deletePersonHandler(index)}
-            key={person.id}
-            changed={(event) => this.switchNameHandler(event, person.id)}/>
+              key={person.id}
+              name={person.name} 
+              age={person.age}
+              click={() => this.deletePersonHandler(index)}
+              changed={(event) => this.switchNameHandler(event, person.id)}/>
         })}
       </div>
     );
-    //style.backgroundColor = 'darkblue';
+  } else {
+    result = (
+      <div>
+        {button}
+      </div>
+    );
   }
   return result;
 }
 
   render() {
-    const style = {
-      backgroundColor: "blue",
-      color: "white",
-      width: "100px",
-      height: "50px",
-      border: "2px solid black",
-      cursor: "pointer",
-      ":hover": {
-        backgroundColor: "lightblue",
-        color: "black"
-      }
-    };
-    let persons = this.togglePersonsDisplay();
+  
+    let togglePeople = this.togglePersonsDisplay();
 
     const assignedClasses = [];
 
@@ -89,12 +85,11 @@ togglePersonsDisplay = () => {
     }
 
     return (
-      <div className={classes.App}>
-        <h1>POC - Curso React</h1>
-        <p className={assignedClasses.join(' ')}>Entendendo JSX</p>
-        <button style={style} onClick={this.togglePersonsHandler}>Exibe Nome</button>
-        {persons}
-      </div>
+        <div className={classes.App}>
+          <h1>POC - Curso React</h1>
+          <p className={assignedClasses.join(' ')}>Entendendo JSX</p>
+          {togglePeople}
+        </div>
     );
   }
 }

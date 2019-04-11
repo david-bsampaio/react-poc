@@ -1,20 +1,9 @@
 import React from 'react';
-
-const style = {
-    "width": "40%",
-    "margin": "16px auto",
-    "border": "1px solid #eee",
-    "boxShadow": "0 2px 3px #ccc",
-    "padding": "16px",
-    "textAlign":"center",
-    '@media (min-width: 700px)':{
-        width:'400px'
-    }
-  };
+import classes from './Person.css';
 
 const person = (props) => {
     return (
-        <div style={style}>
+        <div className={classes.Person}>
             <p onClick={props.click}>Nome: {props.name}.</p>
             <p>Idade: {props.age} anos</p>
             <p>{props.children}</p>
